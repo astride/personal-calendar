@@ -267,6 +267,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -277,9 +278,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PersonalCalendar.DataModel\PersonalCalendar.Data.csproj">
+      <Project>{4e77fe6e-4a56-4df6-9602-0f2eed516bdd}</Project>
+      <Name>PersonalCalendar.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PersonalCalendar.Models\PersonalCalendar.Models.csproj">
       <Project>{dcf6f95f-453f-4538-bd01-b9cfc231428e}</Project>
       <Name>PersonalCalendar.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PersonalCalendar.Services\PersonalCalendar.Services.csproj">
+      <Project>{40d0536e-7066-4a09-99d5-99874ace99ff}</Project>
+      <Name>PersonalCalendar.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

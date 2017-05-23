@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201705231940579_CreateDatabase.cs" />
+    <Compile Include="Migrations\201705231940579_CreateDatabase.Designer.cs">
+      <DependentUpon>201705231940579_CreateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PlanDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,13 +64,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PersonalCalendar\PersonalCalendar.Calendar.csproj">
-      <Project>{771B1BC6-FD9E-4B89-8D46-BB7FB58FD336}</Project>
-      <Name>PersonalCalendar.Calendar</Name>
+    <ProjectReference Include="..\PersonalCalendar.Models\PersonalCalendar.Models.csproj">
+      <Project>{dcf6f95f-453f-4538-bd01-b9cfc231428e}</Project>
+      <Name>PersonalCalendar.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PersonalCalendar.Services\PersonalCalendar.Services.csproj">
+      <Project>{40d0536e-7066-4a09-99d5-99874ace99ff}</Project>
+      <Name>PersonalCalendar.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <EmbeddedResource Include="Migrations\201705231940579_CreateDatabase.resx">
+      <DependentUpon>201705231940579_CreateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
