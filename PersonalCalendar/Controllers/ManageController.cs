@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PersonalCalendar.Models;
 
-namespace PersonalCalendar.Controllers
+namespace PersonalCalendar.Calendar.Controllers
 {
     [Authorize]
     public class ManageController : Controller

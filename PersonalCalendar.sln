@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar", "PersonalCalendar\PersonalCalendar.csproj", "{771B1BC6-FD9E-4B89-8D46-BB7FB58FD336}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar.Calendar", "PersonalCalendar\PersonalCalendar.Calendar.csproj", "{771B1BC6-FD9E-4B89-8D46-BB7FB58FD336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar.DataModel", "PersonalCalendar.DataModel\PersonalCalendar.DataModel.csproj", "{4E77FE6E-4A56-4DF6-9602-0F2EED516BDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar.Data", "PersonalCalendar.DataModel\PersonalCalendar.Data.csproj", "{4E77FE6E-4A56-4DF6-9602-0F2EED516BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar.Models", "PersonalCalendar.Models\PersonalCalendar.Models.csproj", "{DCF6F95F-453F-4538-BD01-B9CFC231428E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalCalendar.Services", "PersonalCalendar.Services\PersonalCalendar.Services.csproj", "{40D0536E-7066-4A09-99D5-99874ACE99FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{4E77FE6E-4A56-4DF6-9602-0F2EED516BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E77FE6E-4A56-4DF6-9602-0F2EED516BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E77FE6E-4A56-4DF6-9602-0F2EED516BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF6F95F-453F-4538-BD01-B9CFC231428E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF6F95F-453F-4538-BD01-B9CFC231428E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF6F95F-453F-4538-BD01-B9CFC231428E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF6F95F-453F-4538-BD01-B9CFC231428E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40D0536E-7066-4A09-99D5-99874ACE99FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40D0536E-7066-4A09-99D5-99874ACE99FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40D0536E-7066-4A09-99D5-99874ACE99FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40D0536E-7066-4A09-99D5-99874ACE99FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
