@@ -7,6 +7,8 @@ namespace PersonalCalendar.Calendar.Controllers
     {
         private IPlanService _planService;
 
+        public CalendarController() : this(new PlanService(new Data.PlanDbContext())) { }
+
         public CalendarController(IPlanService planService)
         {
             _planService = planService;
