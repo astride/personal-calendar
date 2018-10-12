@@ -1,6 +1,7 @@
 ﻿using PersonalCalendar.Data;
 using PersonalCalendar.Models.Calendar;
 using PersonalCalendar.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace PersonalCalendar.Calendar.Controllers
@@ -19,35 +20,16 @@ namespace PersonalCalendar.Calendar.Controllers
             var newPlan = new Plan()
             {
                 IsAllDayEvent = false,
-                StartDate = new Date()
-                {
-                    Year = 2017,
-                    Month = 7,
-                    DateOfMonth = 1,
-                },
-                EndDate = new Date()
-                {
-                    Year = 2017,
-                    Month = 7,
-                    DateOfMonth = 2,
-                },
-                StartTime = new Time()
-                {
-                    Hour = 18,
-                    Minute = 0,
-                },
-                EndTime = new Time()
-                {
-                    Hour = 20,
-                    Minute = 30,
-                },
+                StartDate = new DateTime(2017, 7, 1, 18, 0, 0),
+                EndDate = new DateTime(2017, 7, 1, 20, 30, 0),
                 Title = "Kafé med Susanne",
                 Category = PlanCategory.Venner,
                 Description = "Vi må planlegge sommerferien i Risør!",
                 Location = "Mormors stue",
-                Participants = new Collection<string>()
+                Participants = new Collection<Participant>()
                 {
-                    "Susanne Hansen"
+                    new Participant { Name = "Susanne Hansen" },
+                    new Participant { Name = "Johan Severinsen" }
                 },
             };
 
