@@ -15,6 +15,41 @@ namespace PersonalCalendar.Calendar.Controllers
             _planDbService = planDbService;
         }
 
+        public string SaveToDatabase(Plan plan)
+        {
+            using (var db = new PlanDbContext())
+            {
+                db.Plans.Add(plan);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException exception)
+                {
+                    return exception.InnerException.ToString();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException exception)
+                {
+                    return exception.InnerException.ToString();
+                }
+                catch (NotSupportedException exception)
+                {
+                    return exception.InnerException.ToString();
+                }
+                catch (ObjectDisposedException exception)
+                {
+                    return exception.InnerException.ToString();
+                }
+                catch (InvalidOperationException exception)
+                {
+                    return exception.InnerException.ToString();
+                }
+
+                return null;
+            }
+        }
+
         public void InsertPlan()
         {
             var newPlan = new Plan()

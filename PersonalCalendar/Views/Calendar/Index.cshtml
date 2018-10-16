@@ -5,3 +5,8 @@
 
 <h2>Calendar index page</h2>
 
+@if (ViewBag.Exception != null)
+{
+    <div class="alert-danger">Det har skjedd en feil: @ViewBag.Exception</div>
+}
+

@@ -43,6 +43,12 @@
     <Compile Include="IPlanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PersonalCalendar.Models\PersonalCalendar.Models.csproj">
+      <Project>{DCF6F95F-453F-4538-BD01-B9CFC231428E}</Project>
+      <Name>PersonalCalendar.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,45 @@
+﻿@model PersonalCalendar.ViewModels.PlanViewModel
+
+@{
+    ViewBag.Title = "Legg til plan";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("SavePlan", "Calendar", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.IsAllDayEvent)
+        @Html.CheckBoxFor(m => m.IsAllDayEvent)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.StartDate)
+        @Html.EditorFor(m => m.StartDate, new { @type = "date" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.EndDate)
+        @Html.EditorFor(m => m.EndDate, new { @type = "date" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Category)
+        @Html.EnumDropDownListFor(m => m.Category)</div>
+    <div>
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Location)
+        @Html.TextBoxFor(m => m.Location)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.ParticipantsAsString)
+        @Html.TextBoxFor(m => m.ParticipantsAsString)
+    </div>
+    <div>
+        <input type="submit" value="Lagre" />
+    </div>
+}

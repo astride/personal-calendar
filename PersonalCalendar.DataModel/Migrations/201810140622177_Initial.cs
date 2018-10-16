@@ -25,8 +25,8 @@ namespace PersonalCalendar.DataModel.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         IsAllDayEvent = c.Boolean(nullable: false),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(nullable: false),
+                        StartDate = c.DateTime(),
+                        EndDate = c.DateTime(),
                         Title = c.String(),
                         Category = c.Int(nullable: false),
                         Description = c.String(),

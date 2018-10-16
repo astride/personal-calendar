@@ -13,7 +13,7 @@ namespace PersonalCalendar.DataModel.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201810121617355_Initial"; }
+            get { return "201810140622177_Initial"; }
         }
         
         string IMigrationMetadata.Source
