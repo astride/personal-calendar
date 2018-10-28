@@ -2,7 +2,9 @@
 using PersonalCalendar.Models.Calendar;
 using PersonalCalendar.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace PersonalCalendar.Calendar.Controllers
 {
@@ -13,6 +15,31 @@ namespace PersonalCalendar.Calendar.Controllers
         public PlanService(PlanDbContext planDbService)
         {
             _planDbService = planDbService;
+        }
+
+        public IList<Plan> GetPlans(DateTime? fromDate = null, int? numberOfPlans = null)
+        {
+            using (var db = new PlanDbContext())
+            {
+                var plans = db.Plans.Include("Participants")
+                    .Where(p => p.StartDate != null)
+                    .OrderBy(p => p.StartDate)
+                    .ThenBy(p => p.IsAllDayEvent)
+                    .ThenByDescending(p => p.EndDate)
+                    .ToList();
+
+                if (fromDate != null)
+                {
+                    plans = plans.Where(p => p.StartDate?.Date >= fromDate?.Date).ToList();
+                }
+
+                if (numberOfPlans != null)
+                {
+                    plans = plans.GetRange(0, numberOfPlans.Value);
+                }
+
+                return plans;
+            }
         }
 
         public string SaveToDatabase(Plan plan)

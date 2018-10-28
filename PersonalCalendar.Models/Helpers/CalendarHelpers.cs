@@ -28,5 +28,19 @@ namespace PersonalCalendar.Models.Helpers
 
             return participants;
         }
+
+        public static string GetDateStringOrEmpty(DateTime? date)
+        {
+            return date != null
+                ? date.Value.Date.ToShortDateString()
+                : string.Empty;
+        }
+
+        public static string GetDateTimeStringOrEmpty(DateTime? date)
+        {
+            return date != null
+                ? date.Value.Date.ToShortDateString() + " kl. " + date.Value.TimeOfDay.Hours + ":" + date.Value.TimeOfDay.Minutes
+                : string.Empty;
+        }
     }
 }

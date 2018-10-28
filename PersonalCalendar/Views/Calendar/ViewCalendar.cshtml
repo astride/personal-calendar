@@ -1,0 +1,42 @@
+﻿@model IList<PersonalCalendar.Models.Calendar.Plan>
+@using PersonalCalendar.Models.Helpers
+
+@{
+    ViewBag.Title = "ViewCalendar";
+}
+
+<h2>Kalender</h2>
+
+@foreach (var plan in Model)
+{
+    <hr />
+    <h4>@plan.Title</h4>
+    if (plan.IsAllDayEvent)
+    {
+        <div>
+            <span>@CalendarHelpers.GetDateStringOrEmpty(plan.StartDate)</span>
+        
+            @if (plan.EndDate != null && plan.EndDate?.Date != plan.StartDate?.Date)
+            {
+                <span>-- @CalendarHelpers.GetDateStringOrEmpty(plan.EndDate)</span>
+            }
+        </div>
+    }
+    else
+    {
+        <div>@CalendarHelpers.GetDateTimeStringOrEmpty(plan.StartDate) -- @CalendarHelpers.GetDateTimeStringOrEmpty(plan.EndDate)</div>
+    }
+    <div>@plan.Category</div>
+    <div>@plan.Description</div>
+    <div>@plan.Location</div>
+    if (plan.Participants.Count > 0)
+    {
+        <div>Sammen med:</div>
+        <ul>
+            @foreach (var participant in plan.Participants)
+            {
+                <li>@participant.Name</li>
+            }
+        </ul>
+    }
+}

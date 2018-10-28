@@ -48,5 +48,12 @@ namespace PersonalCalendar.Calendar.Controllers
 
             return RedirectToAction("Index", exception);
         }
+
+        public ActionResult ViewCalendar()
+        {
+            var plans = _planService.GetPlans();
+
+            return View(plans);
+        }
     }
 }
