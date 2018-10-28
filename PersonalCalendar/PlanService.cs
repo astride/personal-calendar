@@ -34,9 +34,9 @@ namespace PersonalCalendar.Calendar.Controllers
                     plans = plans.Where(p => p.StartDate?.Date >= fromDate?.Date).ToList();
                 }
 
-                if (numberOfPlans != null)
+                if (numberOfPlans != null && plans.Count > 0)
                 {
-                    plans = plans.GetRange(0, numberOfPlans.Value);
+                    plans = plans.GetRange(0, Math.Min(numberOfPlans.Value, plans.Count));
                 }
 
                 return plans;

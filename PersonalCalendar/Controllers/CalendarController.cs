@@ -51,7 +51,7 @@ namespace PersonalCalendar.Calendar.Controllers
 
         public ActionResult ViewCalendar()
         {
-            var plans = _planService.GetPlans();
+            var plans = _planService.GetPlans(DateTime.Now, 3);
 
             return View(plans);
         }
