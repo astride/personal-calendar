@@ -1,0 +1,14 @@
+﻿.plan-as-card {
+    border: solid 2px black;
+    width: 250px;
+}
+
+    .plan-as-card ul {
+        list-style-type: none;
+        margin: 5px;
+        padding: 0;
+    }
+
+    .plan-as-card li {
+        text-align: center;
+    }

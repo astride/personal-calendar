@@ -14,37 +14,58 @@
 }
 else
 {
-    foreach (var plan in Model)
-    {
-        <hr />
-        <h4>@plan.Title</h4>
-        if (plan.IsAllDayEvent)
-        {
-            <div>
-                <span>@CalendarHelpers.GetDateStringOrEmpty(plan.StartDate)</span>
-        
-                @if (plan.EndDate != null && plan.EndDate?.Date != plan.StartDate?.Date)
-                {
-                    <span>-- @CalendarHelpers.GetDateStringOrEmpty(plan.EndDate)</span>
-                }
-            </div>
-        }
-        else
-        {
-            <div>@CalendarHelpers.GetDateTimeStringOrEmpty(plan.StartDate) -- @CalendarHelpers.GetDateTimeStringOrEmpty(plan.EndDate)</div>
-        }
-        <div>@plan.Category</div>
-        <div>@plan.Description</div>
-        <div>@plan.Location</div>
-        if (plan.Participants.Count > 0)
-        {
-            <div>Sammen med:</div>
-            <ul>
-                @foreach (var participant in plan.Participants)
-                {
-                    <li>@participant.Name</li>
-                }
-            </ul>
-        }
-    }
+    <hr />
+    <table style="border-collapse: separate; border-spacing: 10px">
+        <tr>
+            @foreach (var plan in Model)
+            {
+                <td class="plan-as-card">
+                    <ul>
+                        <li><b>@CalendarHelpers.GetSpokenDateStringOrEmpty(plan.StartDate)</b></li>
+                        @if (plan.IsAllDayEvent)
+                        {
+                            <li>Hele dagen</li>
+                        }
+                        else
+                        {
+                            <li>@plan.StartDate.Value.ToShortTimeString()</li>
+                        }
+                        <li><b>@plan.Title</b></li>
+                        <li>@plan.Location</li>
+                    </ul>
+                </td>
+
+                @*<hr />
+            <h4>@plan.Title</h4>
+            if (plan.IsAllDayEvent)
+            {
+                <div>
+                    <span>@CalendarHelpers.GetDateStringOrEmpty(plan.StartDate)</span>
+
+                    @if (plan.EndDate != null && plan.EndDate?.Date != plan.StartDate?.Date)
+                    {
+                        <span>-- @CalendarHelpers.GetDateStringOrEmpty(plan.EndDate)</span>
+                    }
+                </div>
+            }
+            else
+            {
+                <div>@CalendarHelpers.GetDateTimeStringOrEmpty(plan.StartDate) -- @CalendarHelpers.GetDateTimeStringOrEmpty(plan.EndDate)</div>
+            }
+            <div>@plan.Category</div>
+            <div>@plan.Description</div>
+            <div>@plan.Location</div>
+            if (plan.Participants.Count > 0)
+            {
+                <div>Sammen med:</div>
+                <ul>
+                    @foreach (var participant in plan.Participants)
+                    {
+                        <li>@participant.Name</li>
+                    }
+                </ul>
+            }*@
+            }
+        </tr>
+    </table>
 }
