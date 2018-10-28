@@ -16,7 +16,7 @@ namespace PersonalCalendar.Models.Helpers
         {
             var participants = new List<Participant>();
 
-            if (participantsAsString != "")
+            if (!string.IsNullOrEmpty(participantsAsString))
             {
                 var participantArray = participantsAsString.Split(',');
 
