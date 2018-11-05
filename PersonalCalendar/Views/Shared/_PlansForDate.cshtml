@@ -1,0 +1,13 @@
+﻿@model DateTime
+
+@{
+    ViewBag.Title = "_PlansForDate";
+}
+
+@using (Html.BeginForm("ViewDay", "Calendar", FormMethod.Post))
+{
+    <p>Hvilken dato vil du se planer for?</p>
+    @Html.EditorFor(m => m.Date, new { @type = "date" })
+    <input type="submit" value="Sett dato" />
+    <br /><br />
+}

@@ -1,0 +1,129 @@
+﻿@model IList<PersonalCalendar.Models.Calendar.Plan>
+@using PersonalCalendar.Models.Helpers
+@using PersonalCalendar.ViewModels
+
+@{
+    ViewBag.Title = "ViewDay";
+
+    var dayPlanElements = new List<DayListingViewModel>();
+
+    foreach (var plan in Model)
+    {
+        dayPlanElements.Add(new DayListingViewModel(plan, ViewBag.Date));
+    }
+
+    string previousEndTime = null;
+}
+
+<style>
+    .collective-table tr:not(:first-of-type) table {
+        border-bottom: none;
+        border-top: solid 1px black;
+    }
+
+    .collective-table tr:nth-of-type(2) table {
+        border-top: solid 2px black;
+    }
+
+    .collective-table tr:last-of-type table {
+        border-bottom: solid 2px black;
+    }
+
+    .plan-as-part-of-day,
+    .break-as-part-of-day {
+        border: solid 2px black;
+        width: 100%;
+    }
+
+    .plan-as-part-of-day tr td:nth-child(1),
+    .plan-as-part-of-day tr td:nth-child(4) {
+        background-color: lightgray;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 80px;
+    }
+
+    .plan-as-part-of-day tr td:nth-child(2) {
+        padding-left: 3px;
+        width: 40px;
+    }
+
+    .plan-as-part-of-day tr td:nth-child(3) {
+        padding: 1px 10px;
+    }
+
+    .break-as-part-of-day td {
+        background-color: lightgray;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<br />
+
+@Html.Partial("_PlansForDate", DateTime.Today)
+
+<hr style="margin-bottom: 10px; margin-top: 5px"/>
+<table  class="collective-table">
+    <tr>
+        <td>
+            <table style="width: 100%">
+                <tr>
+                    <td rowspan="2" style="font-size: 18px; padding-right: 30px"><b>@CalendarHelpers.GetDateStringWithWrittenMonth(ViewBag.Date, true)</b></td>
+                    <td class="pull-right"><b>Uke @CalendarHelpers.GetWeekNumber(ViewBag.Date)</b></td>
+                </tr>
+                <tr>
+                    <td class="pull-right"><b>@ViewBag.Date.Year</b></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    @if (dayPlanElements.Count > 0)
+    {
+        foreach (var plan in dayPlanElements)
+        {
+            if (previousEndTime != null && plan.StartTime != null)
+            {
+                var breakTime = CalendarHelpers.GetBreakTimeFromTimeStrings(plan.StartTime, previousEndTime);
+
+                <tr>
+                    <td style="padding: 0">
+                        <table class="break-as-part-of-day">
+                            <tr>
+                                <td>Reservetid (@breakTime)</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+
+            previousEndTime = plan.EndTime;
+
+            <tr>
+                <td style="padding: 0">
+                    <table class="plan-as-part-of-day">
+                        <tr>
+                            <td>@plan.EarlierStartDate</td>
+                            <td>@plan.StartTime</td>
+                            <td><b>@plan.Title</b></td>
+                            <td>@plan.LaterEndDate</td>
+                        </tr>
+                        <tr>
+                            <td>@plan.EarlierStartTime</td>
+                            <td>@plan.EndTime</td>
+                            <td></td>
+                            <td>@plan.LaterEndTime</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        }
+    }
+</table>
+    
+@if (dayPlanElements.Count == 0)
+{
+    <br />
+    <i>Ingen planer er lagret for denne datoen.</i>
+}

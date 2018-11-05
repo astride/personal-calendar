@@ -3,6 +3,7 @@ using PersonalCalendar.Models.Calendar.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -39,10 +40,22 @@ namespace PersonalCalendar.Models.Helpers
                 : string.Empty;
         }
 
+        public static string GetTimeStringOrEmpty(DateTime? date)
+        {
+            if (date == null) return string.Empty;
+
+            var hours = date.Value.TimeOfDay.Hours;
+            var minutes = date.Value.TimeOfDay.Minutes;
+            var hoursString = hours != 0 ? hours.ToString() : "00";
+            var minutesString = minutes != 0 ? minutes.ToString() : "00";
+
+            return hoursString + ":" + minutesString;
+        }
+
         public static string GetDateTimeStringOrEmpty(DateTime? date)
         {
             return date != null
-                ? date.Value.Date.ToShortDateString() + " kl. " + date.Value.TimeOfDay.Hours + ":" + date.Value.TimeOfDay.Minutes
+                ? GetDateStringOrEmpty(date) + " kl. " + GetTimeStringOrEmpty(date)
                 : string.Empty;
         }
 
@@ -85,6 +98,41 @@ namespace PersonalCalendar.Models.Helpers
         public static string GetDateStringWithWrittenMonth(DateTime date, bool capitalFirstLetter = false)
         {
             return $"{GetNorwegianDayOfWeek(date.DayOfWeek, capitalFirstLetter)} {date.Day}. {GetNorwegianMonth(date.Month)}";
+        }
+
+        public static string GetBreakTimeFromTimeStrings(string toTimeString, string fromTimeString)
+        {
+            var toTimeParts = toTimeString.Split(':');
+            var fromTimeParts = fromTimeString.Split(':');
+
+            var breakTime = "ukjent";
+
+            if (toTimeParts.Length >= 2
+                && fromTimeParts.Length >= 2
+                && Int32.TryParse(toTimeParts[0], out int toTimeHours)
+                && Int32.TryParse(toTimeParts[1], out int toTimeMinutes)
+                && Int32.TryParse(fromTimeParts[0], out int fromTimeHours)
+                && Int32.TryParse(fromTimeParts[1], out int fromTimeMinutes))
+            {
+                var toTimeAsTimeSpan = new TimeSpan(toTimeHours, toTimeMinutes, 0);
+                var fromTimeAsTimeSpan = new TimeSpan(fromTimeHours, fromTimeMinutes, 0);
+                var breakSpan = toTimeAsTimeSpan.Subtract(fromTimeAsTimeSpan);
+
+                breakTime = breakSpan.Hours > 0
+                    ? breakSpan.Hours.ToString() + " t "
+                    : "";
+
+                breakTime += breakSpan.Minutes > 0
+                    ? breakSpan.Minutes.ToString() + " min"
+                    : "";
+            }
+
+            return breakTime;
+        }
+
+        public static int GetWeekNumber(DateTime date)
+        {
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
         private static string GetNorwegianDayOfWeek(DayOfWeek dayOfWeek, bool capitalFirstLetter = false)

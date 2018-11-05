@@ -20,26 +20,52 @@ namespace PersonalCalendar.Calendar.Controllers
 
         public IList<Plan> GetPlans(DateTime? fromDate = null, int? numberOfPlans = null)
         {
+            var plans = new List<Plan>();
+
+            var referenceDate = fromDate != null
+                ? fromDate.Value.Date
+                : (DateTime?) null;
+
             using (var db = new PlanDbContext())
             {
-                var plans = db.Plans.Include("Participants")
-                    .Where(p => p.StartDate != null)
+                plans = db.Plans.Include("Participants")
+                    .Where(p => referenceDate == null
+                        ? p.StartDate != null
+                        : p.StartDate >= referenceDate)
                     .OrderBy(p => p.StartDate)
                     .ThenBy(p => p.IsAllDayEvent)
                     .ThenByDescending(p => p.EndDate)
                     .ToList();
+            }
+            
+            if (numberOfPlans != null && plans.Count > 0)
+            {
+                plans = plans.GetRange(0, Math.Min(numberOfPlans.Value, plans.Count));
+            }
 
-                if (fromDate != null)
-                {
-                    plans = plans.Where(p => p.StartDate?.Date >= fromDate?.Date).ToList();
-                }
+            return plans;
+        }
 
-                if (numberOfPlans != null && plans.Count > 0)
-                {
-                    plans = plans.GetRange(0, Math.Min(numberOfPlans.Value, plans.Count));
-                }
+        public IList<Plan> GetPlansForDay(DateTime dateTime)
+        {
+            var startOfDay = dateTime.Date;
+            var endOfDay = startOfDay.AddDays(1).AddSeconds(-1);
 
-                return plans;
+            using (var db = new PlanDbContext())
+            {
+                return db.Plans.Include("Participants")
+                    .Where(p => p.StartDate != null
+                        && p.EndDate != null
+                        && (
+                            (p.StartDate >= startOfDay && p.StartDate <= endOfDay)
+                            || (p.EndDate >= startOfDay && p.EndDate <= endOfDay)
+                            || (p.StartDate < startOfDay && p.EndDate > endOfDay)
+                        )
+                    )
+                    .OrderBy(p => p.StartDate)
+                    .ThenBy(p => p.IsAllDayEvent)
+                    .ThenByDescending(p => p.EndDate)
+                    .ToList();
             }
         }
 

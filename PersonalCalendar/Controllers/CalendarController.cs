@@ -55,5 +55,16 @@ namespace PersonalCalendar.Calendar.Controllers
 
             return View(plans);
         }
+
+        public ActionResult ViewDay(DateTime? date = null)
+        {
+            var dateToView = date ?? DateTime.Today;
+
+            var plans = _planService.GetPlansForDay(dateToView);
+
+            ViewBag.Date = dateToView.Date;
+
+            return View(plans);
+        }
     }
 }
